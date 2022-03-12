@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- TODO: Add node to connect Election ViewModel -->
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.android.politicalpreparedness.election.ElectionsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.android.politicalpreparedness.MainActivity">
+
+        <!-- TODO: Add Upcoming Election Recycler and Header -->
+        <TextView
+            android:id="@+id/txt_header_elections"
+            style="@style/ElectionHeader"
+            android:layout_height="wrap_content"
+            android:text="@string/election_list_header"
+            app:layout_constraintBottom_toTopOf="@+id/election_list"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:layout_editor_absoluteX="5dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/election_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/txt_header_saved_elections"
+            app:layout_constraintTop_toBottomOf="@+id/txt_header_elections" />
+
+        <!-- TODO: Add Saved Election Recycler and Header -->
+        <TextView
+            android:id="@+id/txt_header_saved_elections"
+            style="@style/ElectionHeader"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_header_saved_elections"
+            app:layout_constraintBottom_toTopOf="@+id/saved_election_list"
+            app:layout_constraintTop_toBottomOf="@+id/election_list"
+            tools:layout_editor_absoluteX="5dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/saved_election_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_header_saved_elections" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
