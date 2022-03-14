@@ -17,6 +17,7 @@ interface ElectionDao {
 
     //TODO: Add select single election query
 
+
     //TODO: Add delete query
 
     //TODO: Add clear query

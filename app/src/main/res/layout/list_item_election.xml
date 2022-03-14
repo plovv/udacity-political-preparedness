@@ -6,13 +6,18 @@
         <variable
             name="election"
             type="com.example.android.politicalpreparedness.network.models.Election" />
+
+        <variable
+            name="electionListener"
+            type="com.example.android.politicalpreparedness.election.adapter.ElectionListener" />
     </data>
     
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/list_item_divider_margin">
+        android:layout_marginBottom="@dimen/list_item_divider_margin"
+        android:onClick="@{() -> electionListener.onClick(election)}">
 
         <TextView
             android:id="@+id/txt_election_name"
