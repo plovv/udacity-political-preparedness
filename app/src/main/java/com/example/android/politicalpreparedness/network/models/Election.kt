@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.network.models
 
 import androidx.room.*
+import androidx.versionedparcelable.NonParcelField
 import com.squareup.moshi.*
 import java.util.*
 
@@ -9,5 +10,6 @@ data class Election(
         @PrimaryKey val id: Int,
         @ColumnInfo(name = "name")val name: String,
         @ColumnInfo(name = "electionDay")val electionDay: Date,
-        @Embedded(prefix = "division_") @Json(name="ocdDivisionId") val division: Division
+        @Embedded(prefix = "division_") @Json(name="ocdDivisionId") val division: Division,
+        @ColumnInfo(name = "following") @NonParcelField val following: Boolean = false
 )

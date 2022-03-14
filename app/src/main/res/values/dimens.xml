@@ -10,5 +10,8 @@
     <dimen name="header_election_list_height">50dp</dimen>
     <dimen name="header_election_list_margin">5dp</dimen>
     <dimen name="header_election_list_padding">2dp</dimen>
+    <dimen name="list_margin">5dp</dimen>
+    <dimen name="list_item_padding">2dp</dimen>
+    <dimen name="list_item_divider_margin">2dp</dimen>
 
 </resources>

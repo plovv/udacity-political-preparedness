@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="election"
+            type="com.example.android.politicalpreparedness.network.models.Election" />
+    </data>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/list_item_divider_margin">
+
+        <TextView
+            android:id="@+id/txt_election_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{election.name}"
+            tools:text="Test header"
+            style="@style/ElectionListItemHeader" />
+
+        <TextView
+            android:id="@+id/txt_election_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{election.electionDay.toString()}"
+            tools:text="Test description"
+            style="@style/ElectionListItem" />
+
+    </LinearLayout>
+
+</layout>

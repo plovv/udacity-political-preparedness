@@ -17,6 +17,7 @@ class DetailFragment : Fragment() {
     }
 
     //TODO: Declare ViewModel
+    val representativeViewModel: RepresentativeViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -46,6 +47,7 @@ class DetailFragment : Fragment() {
 
     private fun isPermissionGranted() : Boolean {
         //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
+        return true // tmp
     }
 
     private fun getLocation() {

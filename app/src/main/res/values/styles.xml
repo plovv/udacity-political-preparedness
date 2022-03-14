@@ -27,6 +27,23 @@
         <item name="android:layout_margin">@dimen/header_election_list_margin</item>
         <item name="android:padding">@dimen/header_election_list_padding</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ElectionListItemHeader" parent="Widget.AppCompat.TextView">
+        <item name="android:color">@color/election_list_header</item>
+        <item name="android:padding">@dimen/list_item_padding</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ElectionListItem" parent="Widget.AppCompat.TextView">
+        <item name="android:padding">@dimen/list_item_padding</item>
+        <item name="android:color">@color/election_list_header</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
 </resources>
