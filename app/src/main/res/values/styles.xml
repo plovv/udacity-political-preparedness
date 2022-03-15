@@ -46,4 +46,10 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="VoterInfoText" parent="Widget.AppCompat.TextView">
+        <item name="android:color">@color/voter_info_text</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>
