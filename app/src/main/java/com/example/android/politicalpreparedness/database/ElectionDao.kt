@@ -16,10 +16,13 @@ interface ElectionDao {
     fun getElections(): LiveData<List<Election>>
 
     //TODO: Add select single election query
-
+    @Query("select * from election_table where id = :electionId")
+    suspend fun getElectionById(electionId: Int): Election
 
     //TODO: Add delete query
 
     //TODO: Add clear query
+    @Query("delete from election_table where following = 0")
+    suspend fun deleteElections()
 
 }

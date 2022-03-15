@@ -1,7 +1,6 @@
 package com.example.android.politicalpreparedness.election
 
 import androidx.lifecycle.*
-import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.Repository
 import kotlinx.coroutines.launch
@@ -27,18 +26,22 @@ class ElectionsViewModel(val repo: Repository): ViewModel() {
         }
 
         viewModelScope.launch {
-            repo.refreshElections()
+            try {
+                repo.refreshElections()
+            } catch (e: Exception) {
+                // show toast
+            }
         }
     }
 
     //TODO: Create functions to navigate to saved or upcoming election voter info
-    private var _navigateToVoterInfo = MutableLiveData<Pair<Int, Division>?>()
-    val navigateToVoterInfo: LiveData<Pair<Int, Division>?>
+    private var _navigateToVoterInfo = MutableLiveData<Election?>()
+    val navigateToVoterInfo: LiveData<Election?>
         get() = _navigateToVoterInfo
     fun completeNavigation() { _navigateToVoterInfo.value = null }
 
     fun onElectionSelect(election: Election) {
-        election.division.
+        _navigateToVoterInfo.value = election
     }
 
 }

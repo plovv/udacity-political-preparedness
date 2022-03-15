@@ -3,6 +3,7 @@ package com.example.android.politicalpreparedness
 import android.app.Application
 import com.example.android.politicalpreparedness.election.ElectionsViewModel
 import com.example.android.politicalpreparedness.election.VoterInfoViewModel
+import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.repository.Repository
 import com.example.android.politicalpreparedness.representative.RepresentativeViewModel
 import org.koin.android.ext.koin.androidContext
@@ -17,8 +18,8 @@ class PoliticalPreparednessApp: Application() {
         single { Repository(get()) }
 
         viewModel {
+            (electionID: Int, division: Division) -> VoterInfoViewModel(get(), electionID, division)
             ElectionsViewModel(get())
-            VoterInfoViewModel(get())
             RepresentativeViewModel(get())
         }
     }
