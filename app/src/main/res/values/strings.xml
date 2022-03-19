@@ -9,4 +9,21 @@
     <string name="election_list_header">Upcoming elections</string>
     <string name="txt_header_saved_elections">Saved elections</string>
 
+    <string name="lbl_ballot_information">Ballot information</string>
+    <string name="lbl_voting_location">Voting locations</string>
+
+    <string name="btn_election_follow_title">Follow election</string>
+    <string name="btn_election_unfollow_title">Unfollow election</string>
+
+    <string name="repre_search_title">Representative Search</string>
+    <string name="repre_results_title">My Representatives</string>
+
+    <string name="repre_address_line1_hint">Address line 1</string>
+    <string name="repre_address_line2_hint">Address line 2</string>
+    <string name="repre_city_hint">City</string>
+    <string name="repre_zip_hint">Zip</string>
+
+    <string name="btn_repre_find_title">Find my representatives</string>
+    <string name="btn_repre_my_location">Use my location</string>
+
 </resources>

@@ -11,5 +11,5 @@ data class Election(
         @ColumnInfo(name = "name")val name: String,
         @ColumnInfo(name = "electionDay")val electionDay: Date,
         @Embedded(prefix = "division_") @Json(name="ocdDivisionId") val division: Division,
-        @ColumnInfo(name = "following") @NonParcelField val following: Boolean = false
+        @ColumnInfo(name = "following") @NonParcelField var following: Boolean = false
 )

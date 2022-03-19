@@ -1,36 +1,52 @@
 package com.example.android.politicalpreparedness.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
+import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import java.time.Instant
+import java.util.*
 
 class Repository(val app: Application) {
 
     private val db = ElectionDatabase.getInstance(app)
     private val remote = CivicsApi.retrofitService
 
-    val elections: LiveData<List<Election>> = db.electionDao.getElections()
+    val elections = db.electionDao.getElections()
 
     suspend fun refreshElections() {
-        try {
+        withContext(Dispatchers.IO) {
             val remoteElections = remote.getElections()
 
             db.electionDao.deleteElections()
             db.electionDao.insertElections(remoteElections.elections)
-        } catch (e: Exception) {
-            // api error or db
         }
     }
 
     suspend fun getElection(electionId: Int): Election {
-        return db.electionDao.getElectionById(electionId)
+        return withContext(Dispatchers.IO) {
+            db.electionDao.getElectionById(electionId)
+        }
     }
 
     suspend fun retrieveVoterInfo(address: String, electionId: Int): VoterInfoResponse {
         return remote.getVoterInfo(address, electionId)
+    }
+
+    suspend fun updateElection(followElection: Election) {
+        withContext(Dispatchers.IO) {
+            db.electionDao.insertElections(listOf(
+                followElection
+            ))
+        }
     }
 
 }

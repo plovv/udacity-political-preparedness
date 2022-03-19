@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.election
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,9 @@ import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.repository.Repository
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class VoterInfoViewModel(val repo: Repository, private val electionID: Int, private val division: Division) : ViewModel() {
+class VoterInfoViewModel(private val repo: Repository, private val electionID: Int, private val division: Division) : ViewModel() {
 
     //TODO: Add live data to hold voter info
 
@@ -32,17 +34,46 @@ class VoterInfoViewModel(val repo: Repository, private val electionID: Int, priv
     val state: LiveData<State>
         get() = _state
 
+    private var _openUrl = MutableLiveData<Uri?>()
+    val openUrl: LiveData<Uri?>
+        get() = _openUrl
+
     init {
         viewModelScope.launch {
             _election.value = repo.getElection(electionID)
+            getVoterInfo()
+        }
+    }
 
-            var address = ""
-            division.apply {
-                address = "${this.country},${this.state}"
-            }
+    private suspend fun getVoterInfo() {
+        try {
+            val country = division.country
+            val state = division.state
+            val address = "${country},${state}"
+
             val voterInfo = repo.retrieveVoterInfo(address, electionID)
 
-            _state.value = voterInfo.state
+            _state.value = voterInfo.state?.get(0)
+        } catch (e: Exception) {
+            // failed
+        }
+    }
+
+    fun openWebLink(url: String) {
+        val uri = Uri.parse(url)
+        _openUrl.value = uri
+    }
+
+    fun clearOpenUrl() {
+        _openUrl.value = null
+    }
+
+    fun followElection(followElection: Election) {
+        followElection.following = !followElection.following
+
+        viewModelScope.launch {
+            repo.updateElection(followElection)
+            _election.value = repo.getElection(followElection.id)
         }
     }
 

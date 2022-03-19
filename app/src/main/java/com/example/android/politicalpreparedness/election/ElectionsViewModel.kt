@@ -1,6 +1,8 @@
 package com.example.android.politicalpreparedness.election
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.Repository
 import kotlinx.coroutines.launch
@@ -9,27 +11,21 @@ import kotlinx.coroutines.launch
 class ElectionsViewModel(val repo: Repository): ViewModel() {
 
     //TODO: Create live data val for upcoming elections
-    private var _upcomingElections = MutableLiveData<List<Election>>()
-    val upcomingElections: LiveData<List<Election>>
-        get() = _upcomingElections
+    val upcomingElections = repo.elections
 
     //TODO: Create live data val for saved elections
-    private var _savedElections = MutableLiveData<List<Election>>()
-    val savedElections: LiveData<List<Election>>
-        get() = _savedElections
+    val savedElections =  Transformations.map(repo.elections) { elections ->
+        elections?.filter { it.following }
+    }
 
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
     init {
-        Transformations.map(repo.elections) { elections ->
-            _upcomingElections.value = elections
-            _savedElections.value = elections?.filter { it.following }
-        }
-
         viewModelScope.launch {
             try {
                 repo.refreshElections()
             } catch (e: Exception) {
                 // show toast
+                Log.i("ElectionsViewModel", "failed in vm ${e.message}")
             }
         }
     }

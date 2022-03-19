@@ -3,7 +3,7 @@
     <dimen name="default_padding">8dp</dimen>
 
     <!-- TODO: Add necessary dimension values -->s
-    <dimen name="btn_generic_height">60dp</dimen>
+    <dimen name="btn_generic_height">45dp</dimen>
     <dimen name="btn_generic_margin">10dp</dimen>
     <dimen name="btn_generic_padding">4dp</dimen>
     <dimen name="img_app_logo_margin">10dp</dimen>
@@ -13,5 +13,6 @@
     <dimen name="list_margin">5dp</dimen>
     <dimen name="list_item_padding">2dp</dimen>
     <dimen name="list_item_divider_margin">2dp</dimen>
+    <dimen name="voter_info_text_height">30dp</dimen>
 
 </resources>

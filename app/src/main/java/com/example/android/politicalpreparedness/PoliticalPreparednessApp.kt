@@ -10,17 +10,17 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 class PoliticalPreparednessApp: Application() {
 
     private val appModule = module {
         single { Repository(get()) }
-
+        viewModel { ElectionsViewModel(get()) }
+        viewModel { RepresentativeViewModel(get()) }
         viewModel {
-            (electionID: Int, division: Division) -> VoterInfoViewModel(get(), electionID, division)
-            ElectionsViewModel(get())
-            RepresentativeViewModel(get())
+                (electionID: Int, division: Division) -> VoterInfoViewModel(get(), electionID, division)
         }
     }
 
@@ -28,7 +28,7 @@ class PoliticalPreparednessApp: Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger()
+            androidLogger(Level.ERROR)
             androidContext(this@PoliticalPreparednessApp)
             modules(appModule)
         }

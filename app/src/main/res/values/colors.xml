@@ -9,6 +9,10 @@
     <color name="genericBtnBgColor">#1FA6FF</color>
     <color name="genericBtnTxtColor">#fff</color>
     <color name="election_list_header">#122524</color>
-    <color name="voter_info_text">#0123A1</color>
+    <color name="voter_info_header">#122524</color>
+    <color name="voter_info_text">#335570</color>
+    <color name="voter_info_url">#0123A1</color>
+    <color name="voter_info_topbar">#A6192832</color>
+    <color name="voter_info_topbar_title">#CCCBCB</color>
 
 </resources>
