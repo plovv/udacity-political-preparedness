@@ -8,6 +8,7 @@ import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.RepresentativeResponse
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -38,7 +39,9 @@ class Repository(val app: Application) {
     }
 
     suspend fun retrieveVoterInfo(address: String, electionId: Int): VoterInfoResponse {
-        return remote.getVoterInfo(address, electionId)
+        return withContext(Dispatchers.IO) {
+            remote.getVoterInfo(address, electionId)
+        }
     }
 
     suspend fun updateElection(followElection: Election) {
@@ -46,6 +49,12 @@ class Repository(val app: Application) {
             db.electionDao.insertElections(listOf(
                 followElection
             ))
+        }
+    }
+
+    suspend fun retrieveRepresentatives(address: String): RepresentativeResponse {
+        return withContext(Dispatchers.IO) {
+            remote.getRepresentatives(address)
         }
     }
 

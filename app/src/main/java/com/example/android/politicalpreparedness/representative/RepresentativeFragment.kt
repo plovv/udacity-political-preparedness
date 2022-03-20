@@ -10,6 +10,7 @@ import android.location.Location
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
@@ -31,7 +32,9 @@ class DetailFragment : Fragment() {
         if (granted) {
             getLocation()
         } else {
-            // inform about missing permission
+            Toast
+                .makeText(requireContext(), "Location permission is required to use my location.", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -49,6 +52,10 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = representativeViewModel
 
+        binding.buttonSearch.setOnClickListener {
+            hideKeyboard()
+            representativeViewModel.getRepresentatives()
+        }
         binding.buttonLocation.setOnClickListener {
             requestLocation()
         }
@@ -78,7 +85,9 @@ class DetailFragment : Fragment() {
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             val address = geoCodeLocation(location)
-            // return to viewmodel
+
+            representativeViewModel.setAddressFromMyLocation(address)
+            representativeViewModel.getRepresentatives()
         }
     }
 
