@@ -3,15 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/resu/Documents/Projects/android/udacity-political-preparedness/app/src/main/res/layout/fragment_representative.xml" value="0.24139492753623187" />
-        <entry key="..\:/Users/resu/Documents/Projects/android/udacity-political-preparedness/app/src/main/res/layout/fragment_voter_info.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/resu/Documents/Projects/android/udacity-political-preparedness/app/src/main/res/layout/list_item_election.xml" value="0.17300724637681159" />
         <entry key="app/src/main/res/drawable/ballot_logo.xml" value="0.3025" />
-        <entry key="app/src/main/res/layout/fragment_election.xml" value="0.32518115942028986" />
+        <entry key="app/src/main/res/drawable/ic_broken_image.xml" value="0.349" />
+        <entry key="app/src/main/res/drawable/ic_connection_error.xml" value="0.349" />
+        <entry key="app/src/main/res/drawable/ic_facebook.xml" value="0.349" />
+        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.349" />
+        <entry key="app/src/main/res/drawable/ic_twitter.xml" value="0.349" />
+        <entry key="app/src/main/res/drawable/loading_img.xml" value="0.349" />
+        <entry key="app/src/main/res/drawable/placeholder_representative_photo.xml" value="0.349" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.35190217391304346" />
+        <entry key="app/src/main/res/layout/fragment_election.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_launch.xml" value="0.17325227963525835" />
-        <entry key="app/src/main/res/layout/fragment_representative.xml" value="0.32518115942028986" />
-        <entry key="app/src/main/res/layout/fragment_voter_info.xml" value="0.18177083333333333" />
-        <entry key="app/src/main/res/layout/list_item_election.xml" value="0.32518115942028986" />
+        <entry key="app/src/main/res/layout/fragment_representative.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_voter_info.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/list_item_election.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/list_item_representative.xml" value="0.67" />
+        <entry key="app/src/main/res/menu/voterinfo_menu.xml" value="0.35625" />
       </map>
     </option>
   </component>

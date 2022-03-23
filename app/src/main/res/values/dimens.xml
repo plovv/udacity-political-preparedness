@@ -14,5 +14,12 @@
     <dimen name="list_item_padding">2dp</dimen>
     <dimen name="list_item_divider_margin">2dp</dimen>
     <dimen name="voter_info_text_height">30dp</dimen>
+    <dimen name="icon_dim">30dp</dimen>
+    <dimen name="icon_padding">2dp</dimen>
+    <dimen name="representative_photo_dim">70dp</dimen>
+    <dimen name="representative_lst_item_height">100dp</dimen>
+    <dimen name="representative_lst_item_padding">5dp</dimen>
+    <dimen name="representative_lst_separator">4dp</dimen>
+    <dimen name="representative_photo_margin">2dp</dimen>
 
 </resources>

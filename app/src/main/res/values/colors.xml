@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#34495e</color>
     <color name="colorPrimaryDark">#1d3747</color>
     <color name="colorAccent">#82d9c8</color>
@@ -14,5 +15,6 @@
     <color name="voter_info_url">#0123A1</color>
     <color name="voter_info_topbar">#A6192832</color>
     <color name="voter_info_topbar_title">#CCCBCB</color>
+    <color name="representative_photo_outline">#4A4A4A</color>
 
 </resources>

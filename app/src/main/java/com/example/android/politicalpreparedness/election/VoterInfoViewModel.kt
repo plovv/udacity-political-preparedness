@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.election
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,21 +15,13 @@ import java.lang.Exception
 
 class VoterInfoViewModel(private val repo: Repository, private val electionID: Int, private val division: Division) : ViewModel() {
 
-    //TODO: Add live data to hold voter info
-
-    //TODO: Add var and methods to populate voter info
-
-    //TODO: Add var and methods to support loading URLs
-
-    //TODO: Add var and methods to save and remove elections to local database
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
-
-    /**
-     * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
-     */
     private var _election = MutableLiveData<Election>()
     val election: LiveData<Election>
         get() = _election
+
+    private var _isSaved = MutableLiveData<Boolean>(false)
+    val isSaved: LiveData<Boolean>
+        get() = _isSaved
 
     private var _state = MutableLiveData<State>()
     val state: LiveData<State>
@@ -38,10 +31,24 @@ class VoterInfoViewModel(private val repo: Repository, private val electionID: I
     val openUrl: LiveData<Uri?>
         get() = _openUrl
 
+    private val _showError = MutableLiveData<String?>(null)
+    val showError: LiveData<String?>
+        get() = _showError
+    fun errorShown() { _showError.value = null }
+
     init {
         viewModelScope.launch {
-            _election.value = repo.getElection(electionID)
+            checkForSavedElection()
             getVoterInfo()
+        }
+    }
+
+    private suspend fun checkForSavedElection() {
+        val savedElection = repo.getElection(electionID)
+
+        savedElection?.run {
+            _isSaved.value = true
+            _election.value = this
         }
     }
 
@@ -53,9 +60,11 @@ class VoterInfoViewModel(private val repo: Repository, private val electionID: I
 
             val voterInfo = repo.retrieveVoterInfo(address, electionID)
 
+            _election.value = voterInfo.election
             _state.value = voterInfo.state?.get(0)
         } catch (e: Exception) {
-            // failed
+            Log.i("VoterInfoViewModel", "Remote failed: ${e.message}")
+            _showError.value = "Failed to retrieve voter info. Please check your internet connection"
         }
     }
 
@@ -68,12 +77,15 @@ class VoterInfoViewModel(private val repo: Repository, private val electionID: I
         _openUrl.value = null
     }
 
-    fun followElection(followElection: Election) {
-        followElection.following = !followElection.following
-
+    fun saveElection(election: Election) {
         viewModelScope.launch {
-            repo.updateElection(followElection)
-            _election.value = repo.getElection(followElection.id)
+            if (isSaved.value == true) {
+                repo.deleteSavedElection(election.id)
+                _isSaved.value = false
+            } else {
+                repo.saveElection(election)
+                _isSaved.value = true
+            }
         }
     }
 

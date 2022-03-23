@@ -24,7 +24,7 @@ fun bindTextRelatedData(textView: TextView, dataValue: String?) {
     }
 }
 
-@BindingAdapter("followTitle")
+@BindingAdapter("setSavedTitle")
 fun bindFollowButtonTitle(button: Button, isSaved: Boolean = false) {
     button.text = if (isSaved) button.context.getText(R.string.btn_election_unfollow_title) else button.context.getText(R.string.btn_election_follow_title)
 }

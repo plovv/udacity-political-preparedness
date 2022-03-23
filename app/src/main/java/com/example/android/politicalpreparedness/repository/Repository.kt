@@ -1,34 +1,32 @@
 package com.example.android.politicalpreparedness.repository
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
-import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.RepresentativeResponse
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.time.Instant
-import java.util.*
+
 
 class Repository(val app: Application) {
 
     private val db = ElectionDatabase.getInstance(app)
     private val remote = CivicsApi.retrofitService
 
-    val elections = db.electionDao.getElections()
+    private val _upcomingElections = MutableLiveData<List<Election>?>()
+    val upcomingElections: LiveData<List<Election>?>
+        get() = _upcomingElections
+
+    val savedElections = db.electionDao.getElections()
 
     suspend fun refreshElections() {
         withContext(Dispatchers.IO) {
-            val remoteElections = remote.getElections()
-
-            db.electionDao.deleteElections()
-            db.electionDao.insertElections(remoteElections.elections)
+            val result = remote.getElections()
+            _upcomingElections.postValue(result.elections)
         }
     }
 
@@ -44,11 +42,15 @@ class Repository(val app: Application) {
         }
     }
 
-    suspend fun updateElection(followElection: Election) {
+    suspend fun saveElection(election: Election) {
         withContext(Dispatchers.IO) {
-            db.electionDao.insertElections(listOf(
-                followElection
-            ))
+            db.electionDao.insertElection(election)
+        }
+    }
+
+    suspend fun deleteSavedElection(electionId: Int) {
+        withContext(Dispatchers.IO) {
+            db.electionDao.deleteElection(electionId)
         }
     }
 

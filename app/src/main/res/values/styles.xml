@@ -9,7 +9,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- TODO: Add necessary styles -->
     <style name="MyGenericButtonTheme" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/btn_generic_height</item>
