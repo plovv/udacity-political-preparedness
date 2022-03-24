@@ -117,7 +117,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:representatives="@{viewModel.representatives}" />
+            app:representatives="@{viewModel.representatives}"
+            android:saveEnabled="true" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

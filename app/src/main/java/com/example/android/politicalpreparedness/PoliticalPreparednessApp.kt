@@ -18,7 +18,7 @@ class PoliticalPreparednessApp: Application() {
     private val appModule = module {
         single { Repository(get()) }
         viewModel { ElectionsViewModel(get()) }
-        viewModel { RepresentativeViewModel(get()) }
+        viewModel { RepresentativeViewModel(get(), get()) }
         viewModel {
                 (electionID: Int, division: Division) -> VoterInfoViewModel(get(), electionID, division)
         }

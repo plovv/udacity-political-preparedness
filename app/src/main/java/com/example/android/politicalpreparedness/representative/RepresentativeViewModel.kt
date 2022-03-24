@@ -6,15 +6,15 @@ import com.example.android.politicalpreparedness.repository.Repository
 import com.example.android.politicalpreparedness.representative.model.Representative
 import kotlinx.coroutines.launch
 
-class RepresentativeViewModel(private val repo: Repository): ViewModel() {
+class RepresentativeViewModel(private val savedState: SavedStateHandle, private val repo: Repository): ViewModel() {
 
-    val line1 = MutableLiveData<String>()
-    val line2 = MutableLiveData<String?>()
-    val city = MutableLiveData<String>()
-    val state = MutableLiveData<String?>()
-    val zip = MutableLiveData<String?>()
+    val line1: MutableLiveData<String> = savedState.getLiveData("line1")
+    val line2: MutableLiveData<String?> = savedState.getLiveData("line2")
+    val city: MutableLiveData<String> = savedState.getLiveData("city")
+    val state: MutableLiveData<String?> = savedState.getLiveData("state")
+    val zip: MutableLiveData<String?> = savedState.getLiveData("zip")
 
-    private var _representatives = MutableLiveData<List<Representative>>()
+    private var _representatives: MutableLiveData<List<Representative>> = savedState.getLiveData("representatives")
     val representatives: LiveData<List<Representative>>
         get() = _representatives
 

@@ -14,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
@@ -27,6 +28,8 @@ import java.util.Locale
 
 
 class DetailFragment : Fragment() {
+
+    private val MOTION_LAYOUT_STATE_NAME = "motionState"
 
     private val representativeViewModel: RepresentativeViewModel by viewModel()
     private lateinit var binding: FragmentRepresentativeBinding
@@ -76,6 +79,22 @@ class DetailFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(MOTION_LAYOUT_STATE_NAME)) {
+            val motionState =savedInstanceState.getInt(MOTION_LAYOUT_STATE_NAME)
+            (binding.root as MotionLayout).transitionToState(motionState)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val currentLayoutState = (binding.root as MotionLayout).currentState
+        outState.putInt(MOTION_LAYOUT_STATE_NAME, currentLayoutState)
     }
 
     @SuppressLint("MissingPermission")
